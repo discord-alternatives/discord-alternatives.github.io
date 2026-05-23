@@ -77,9 +77,9 @@
     "open_source": true,
     "features": {
       "privacy": {
-        "encryption": "partial",
+        "encryption": "none",
         "data_harvesting_risk": "low",
-        "security_history": "mixed",
+        "security_history": "good",
         "kyc_required": "none",
         "nsfw_support": "limited"
       },
@@ -122,18 +122,18 @@
       },
       "architecture": {
         "federation": "none",
-        "self_hosting": "partial",
-        "discovery": "basic",
+        "self_hosting": "full",
+        "discovery": "full",
         "open_source": true
       },
       "adoption": {
         "userbase": "medium",
         "performance": "medium",
-        "market_focus": "gaming",
+        "market_focus": "general",
         "consumer_relationship": "community-driven"
       },
       "safety": {
-        "ai_safety": "yes",
+        "ai_safety": "unknown",
         "safety_concerns": "low",
         "transparency": "medium"
       }
