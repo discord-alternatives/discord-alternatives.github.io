@@ -9,7 +9,7 @@
       "encryption": "partial",
       "data_harvesting_risk": "high",
       "security_history": "mixed",
-      "kyc_required": "none",
+      "kyc_required": "optional",
       "nsfw_support": "full"
     },
     "core_chat": {
