@@ -138,5 +138,75 @@
         "transparency": "medium"
       }
     }
+  },
+  {
+    "name": "Mezon AI",
+    "website": "https://mezon.ai",
+    "repo": "https://github.com/mezonai/mezon",
+    "license": "GPL",
+    "open_source": true,
+    "features": {
+      "privacy": {
+        "encryption": "E2EE",
+        "data_harvesting_risk": "low",
+        "security_history": "good",
+        "kyc_required": "none",
+        "nsfw_support": "yes"
+      },
+      "core_chat": {
+        "channels": "advanced",
+        "channel_history": "full",
+        "persistent_channel_order": true,
+        "threads": "basic",
+        "pinned_posts": true,
+        "direct_messages": true,
+        "reactions": true,
+        "embeds": true,
+        "markdown": "advanced",
+        "message_editing": true,
+        "search": "advanced",
+        "typing_indicators": true
+      },
+      "voice_media": {
+        "voice_calls": true,
+        "video_calls": true,
+        "screen_sharing": true,
+        "streaming": true,
+        "noise_suppression": true,
+        "file_sharing": "full",
+        "soundboard": true
+      },
+      "community": {
+        "bots_plugins": "limited",
+        "plural_kit_support": "partial",
+        "custom_emotes": true,
+        "custom_stickers": true,
+        "polls": "basic",
+        "events": "basic",
+        "collaboration_tools": "advanced"
+      },
+      "platform": {
+        "mobile": true,
+        "web": true,
+        "desktop": true
+      },
+      "architecture": {
+        "federation": "none",
+        "self_hosting": "full",
+        "discovery": "full",
+        "open_source": true
+      },
+      "adoption": {
+        "userbase": "medium",
+        "performance": "high",
+        "market_focus": "general",
+        "consumer_relationship": "community-driven"
+      },
+      "safety": {
+        "ai_safety": "unknown",
+        "safety_concerns": "low",
+        "transparency": "medium"
+      }
+    }
   }
 ]
