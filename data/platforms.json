@@ -1,5 +1,74 @@
 [
   {
+  "name": "Fenrid",
+  "website": "https://fenrid.com",
+  "license": "AGPL-3.0 Planned",
+  "open_source": false,
+  "features": {
+    "privacy": {
+      "encryption": "partial",
+      "data_harvesting_risk": "low",
+      "security_history": "unknown",
+      "kyc_required": "none",
+      "nsfw_support": "unknown"
+    },
+    "core_chat": {
+      "channels": "advanced",
+      "channel_history": "full",
+      "persistent_channel_order": true,
+      "threads": "none",
+      "pinned_posts": true,
+      "direct_messages": true,
+      "reactions": true,
+      "embeds": true,
+      "markdown": "advanced",
+      "message_editing": true,
+      "search": "basic",
+      "typing_indicators": true
+    },
+    "voice_media": {
+      "voice_calls": true,
+      "video_calls": true,
+      "screen_sharing": true,
+      "streaming": true,
+      "noise_suppression": true,
+      "file_sharing": "full",
+      "soundboard": false
+    },
+    "community": {
+      "bots_plugins": "none",
+      "plural_kit_support": "none",
+      "custom_emotes": true,
+      "custom_stickers": false,
+      "polls": "none",
+      "events": "advanced",
+      "collaboration_tools": "advanced"
+    },
+    "platform": {
+      "mobile": false,
+      "web": true,
+      "desktop": false
+    },
+    "architecture": {
+      "federation": "none",
+      "self_hosting": "none",
+      "discovery": "basic",
+      "open_source": false
+    },
+    "adoption": {
+      "userbase": "low",
+      "performance": "unknown",
+      "market_focus": "gaming",
+      "consumer_relationship": "community-driven"
+    },
+    "safety": {
+      "ai_safety": "yes",
+      "safety_concerns": "medium",
+      "transparency": "medium"
+    }
+  }
+},
+  {
     "name": "Spacebar",
     "website": "https://spacebar.chat/",
     "repo": "https://github.com/spacebarchat",
