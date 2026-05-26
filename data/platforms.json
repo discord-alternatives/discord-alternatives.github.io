@@ -277,5 +277,75 @@
         "transparency": "high"
       }
     }
+  },
+  {
+    "name": "Valour",
+    "website": "https://valour.gg",
+    "repo": "https://github.com/Valour-Software/Valour",
+    "license": "AGPL-3.0",
+    "open_source": true,
+    "features": {
+      "privacy": {
+        "encryption": "none",
+        "data_harvesting_risk": "low",
+        "security_history": "good",
+        "kyc_required": "none",
+        "nsfw_support": "limited"
+      },
+      "core_chat": {
+        "channels": "advanced",
+        "channel_history": "full",
+        "persistent_channel_order": true,
+        "threads": "none",
+        "pinned_posts": false,
+        "direct_messages": true,
+        "reactions": true,
+        "embeds": true,
+        "markdown": "advanced",
+        "message_editing": true,
+        "search": "basic",
+        "typing_indicators": true
+      },
+      "voice_media": {
+        "voice_calls": true,
+        "video_calls": true,
+        "screen_sharing": true,
+        "streaming": true,
+        "noise_suppression": false,
+        "file_sharing": "full",
+        "soundboard": false
+      },
+      "community": {
+        "bots_plugins": "full",
+        "plural_kit_support": "none",
+        "custom_emotes": true,
+        "custom_stickers": false,
+        "collaboration_tools": "none",
+        "events": "none",
+        "polls": "none"
+      },
+      "platform": {
+        "desktop": true,
+        "mobile": true,
+        "web": true
+      },
+      "architecture": {
+        "discovery": "advanced",
+        "federation": "none",
+        "open_source": true,
+        "self_hosting": "partial"
+      },
+      "adoption": {
+        "userbase": "medium",
+        "performance": "high",
+        "consumer_relationship": "community-driven",
+        "market_focus": "mixed"
+      },
+      "safety": {
+        "ai_safety": "unknown",
+        "safety_concerns": "low",
+        "transparency": "high"
+      }
+    }
   }
 ]
