@@ -1,0 +1,173 @@
+---
+interface Props {
+    platform: any;
+    isComparison?: boolean;
+}
+
+const { platform, isComparison = false } = Astro.props;
+const f = platform.features;
+
+function fmtVal(v: any): string {
+    if (v === true) return "Yes";
+    if (v === false) return "No";
+    if (v === null || v === undefined) return "—";
+    return String(v);
+}
+
+function chipClass(val: any): string {
+    if (
+        val === true ||
+        val === "full" ||
+        val === "advanced" ||
+        val === "good" ||
+        val === "high"
+    )
+        return "yes";
+    if (val === false || val === "none") return "no";
+    if (val === "unknown") return "unk";
+    return "warn";
+}
+
+function chipIcon(val: any): string {
+    if (val === true || val === "full" || val === "advanced") return "ti-check";
+    if (val === false || val === "none") return "ti-x";
+    if (val === "unknown") return "ti-question-mark";
+    return "ti-minus";
+}
+
+const categories: Array<{ label: string; key: string }> = [
+    { label: "Privacy", key: "privacy" },
+    { label: "Core chat", key: "core_chat" },
+    { label: "Voice & media", key: "voice_media" },
+    { label: "Community", key: "community" },
+    { label: "Platform", key: "platform" },
+    { label: "Architecture", key: "architecture" },
+    { label: "Adoption", key: "adoption" },
+    { label: "Safety", key: "safety" },
+];
+---
+
+<div
+    class:list={["prow", isComparison && "prow--comparison"]}
+    data-id={platform.id ?? platform.name.toLowerCase().replace(/\s+/g, "-")}
+    data-platform={JSON.stringify(platform)}
+    data-comparison={isComparison}
+>
+    <button class="prow-header" aria-expanded="false">
+        <span class="prow-icon">
+            <img
+                src={platform.logo || "/assets/no-img.png"}
+                alt={platform.name}
+                class="platform-logo"
+                onerror="this.src='/assets/no-img.png'"
+            />
+        </span>
+
+        <span class="prow-info">
+            <span class="prow-name">
+                {platform.name}
+                {
+                    !platform.open_source && (
+                        <span class="badge badge--closed">closed source</span>
+                    )
+                }
+                {
+                    platform.vibecoded && (
+                        <span class="badge badge--vibecoded">vibecoded</span>
+                    )
+                }
+                {
+                    isComparison && (
+                        <span class="badge badge--baseline">baseline</span>
+                    )
+                }
+            </span>
+            <span class="prow-meta">{platform.license}</span>
+        </span>
+
+        <span class="prow-scores">
+            <span class="score-block score-block--match">
+                <span class="score-num" data-match-score>-</span>
+                <span class="score-lbl"
+                    >{isComparison ? "comparison only" : "match"}</span
+                >
+            </span>
+            <span class="score-divider"></span>
+            <span class="score-block score-block--rating">
+                <span class="score-num score-num--rating">
+                    {
+                        platform.rating === -1
+                            ? "-/100"
+                            : `${platform.rating}/100`
+                    }
+                </span>
+                <span class="score-lbl"
+                    >{platform.rating === -1 ? "unrated" : "our rating"}</span
+                >
+            </span>
+        </span>
+
+        <i class="ti ti-chevron-down prow-chevron" aria-hidden="true"></i>
+    </button>
+
+    <div class="prow-expand" hidden>
+        <div class="expand-links">
+            <a
+                href={platform.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="elink"
+            >
+                <i class="ti ti-external-link" aria-hidden="true"></i> Website
+            </a>
+            {
+                platform.repo && (
+                    <a
+                        href={platform.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="elink"
+                    >
+                        <i class="ti ti-brand-github" aria-hidden="true" />{" "}
+                        Repository
+                    </a>
+                )
+            }
+            <button
+                class="elink notes-btn"
+                data-notes-trigger={platform.name}
+                title="View notes"
+            >
+                <i class="ti ti-notes" aria-hidden="true"></i> Notes
+            </button>
+        </div>
+
+        <div class="feat-cats">
+            {
+                categories.map(({ label, key }) => {
+                    const cat = f[key];
+                    if (!cat) return null;
+                    return (
+                        <div class="feat-cat">
+                            <div class="feat-cat-title">{label}</div>
+                            <div class="feat-grid">
+                                {Object.entries(cat).map(([k, v]) => (
+                                    <div class:list={["fc", chipClass(v)]}>
+                                        <i
+                                            class:list={["ti", chipIcon(v)]}
+                                            aria-hidden="true"
+                                        />
+                                        <span class="fc-label">
+                                            {k.replace(/_/g, " ")}
+                                        </span>
+                                        <span class="fc-val">{fmtVal(v)}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,424 @@
+---
+interface SelectFilter {
+    type: "select";
+    key: string;
+    label: string;
+    options: { value: string; label: string }[];
+}
+interface ToggleFilter {
+    type: "toggle";
+    key: string;
+    label: string;
+}
+interface Section {
+    label: string;
+    selects?: SelectFilter[];
+    toggles?: ToggleFilter[];
+}
+
+function sel(
+    key: string,
+    label: string,
+    ...opts: [string, string][]
+): SelectFilter {
+    return {
+        type: "select",
+        key,
+        label,
+        options: opts.map(([v, l]) => ({ value: v, label: l })),
+    };
+}
+function tog(key: string, label: string): ToggleFilter {
+    return { type: "toggle", key, label };
+}
+
+const sections: Section[] = [
+    {
+        label: "Privacy",
+        selects: [
+            sel(
+                "enc",
+                "Encryption",
+                ["full", "Full E2E"],
+                ["partial", "Partial"],
+                ["optional", "Optional"],
+                ["none", "None"],
+            ),
+            sel(
+                "harv",
+                "Data harvesting risk",
+                ["low", "Low"],
+                ["medium", "Medium"],
+                ["high", "High"],
+            ),
+            sel(
+                "kyc",
+                "KYC required",
+                ["none", "None"],
+                ["optional", "Optional"],
+                ["required", "Required"],
+            ),
+            sel(
+                "nsfw",
+                "NSFW support",
+                ["full", "Full"],
+                ["limited", "Limited"],
+                ["none", "None"],
+            ),
+        ],
+        toggles: [
+            tog("oss", "Open source only"),
+            tog("vibecoded", "No vibecoded"),
+        ],
+    },
+    {
+        label: "Core Chat",
+        selects: [
+            sel(
+                "chan",
+                "Channels",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+            ),
+            sel(
+                "thr",
+                "Threads",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+            ),
+            sel("srch", "Search", ["advanced", "Advanced"], ["basic", "Basic"]),
+            sel(
+                "ch_hist",
+                "Channel history",
+                ["full", "Full"],
+                ["limited", "Limited"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "markdown",
+                "Markdown",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+        toggles: [
+            tog("dm", "Direct messages"),
+            tog("dmg", "Group DMs"),
+            tog("react", "Reactions"),
+            tog("edit", "Message editing"),
+            tog("persis_order", "Persistent channel order"),
+            tog("pins", "Pinned posts"),
+            tog("ping", "Pings"),
+            tog("embed", "Embeds"),
+            tog("type_ind", "Typing indicators"),
+        ],
+    },
+    {
+        label: "Voice & Media",
+        selects: [
+            sel(
+                "files",
+                "File sharing",
+                ["full", "Full"],
+                ["limited", "Limited"],
+            ),
+        ],
+        toggles: [
+            tog("voice", "Voice calls"),
+            tog("vid", "Video calls"),
+            tog("screen", "Screen sharing"),
+            tog("stage", "Stage"),
+            tog("voice_text", "Voice & text chat"),
+            tog("stream", "Streaming"),
+            tog("nosuppress", "Noise suppression"),
+            tog("sound", "Soundboard"),
+            tog("activ", "Activities & games"),
+            tog("ringtone", "Custom ringtones"),
+            tog("hls", "Smart video loading/HLS"),
+        ],
+    },
+    {
+        label: "Community",
+        selects: [
+            sel(
+                "bots",
+                "Bots / plugins",
+                ["full", "Full"],
+                ["limited", "Limited"],
+                ["none", "None"],
+            ),
+            sel(
+                "amod",
+                "Automod",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+            ),
+            sel(
+                "plural",
+                "Plural kit support",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "polls",
+                "Polls",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "events",
+                "Events",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "collab",
+                "Collaboration tools",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "import",
+                "Import from Discord",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "discord_sync",
+                "Discord bridge sync",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+        toggles: [
+            tog("emote", "Custom emotes"),
+            tog("stick", "Custom stickers"),
+            tog("app_gate", "Application gate"),
+        ],
+    },
+    {
+        label: "Integrations",
+        selects: [
+            sel(
+                "polls2",
+                "Polls",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "events2",
+                "Events",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "collab2",
+                "Collaboration tools",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "import2",
+                "Import from Discord",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "discord_sync2",
+                "Discord bridge sync",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+        toggles: [tog("app_gate2", "Application gate")],
+    },
+    {
+        label: "Platform",
+        selects: [
+            sel(
+                "dsk",
+                "Desktop framework",
+                ["tauri", "Tauri"],
+                ["electron", "Electron"],
+                ["native", "Native"],
+                ["qt", "Qt"],
+                ["flutter", "Flutter"],
+            ),
+            sel(
+                "cross_lang",
+                "Cross-language support",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+        toggles: [
+            tog("mob", "Mobile client"),
+            tog("desk", "Desktop client"),
+            tog("web", "Web client"),
+        ],
+    },
+    {
+        label: "Architecture",
+        selects: [
+            sel(
+                "sh",
+                "Self-hosting",
+                ["full", "Full"],
+                ["partial", "Partial"],
+                ["none", "None"],
+            ),
+            sel("fed", "Federation", ["full", "Full"], ["partial", "Partial"]),
+            sel(
+                "disc",
+                "Discovery",
+                ["advanced", "Advanced"],
+                ["basic", "Basic"],
+            ),
+        ],
+    },
+    {
+        label: "Adoption",
+        selects: [
+            sel(
+                "usr",
+                "Userbase size",
+                ["high", "High"],
+                ["medium", "Medium"],
+                ["low", "Low"],
+            ),
+            sel(
+                "mkt",
+                "Market focus",
+                ["gaming", "Gaming"],
+                ["general", "General"],
+                ["enterprise", "Enterprise"],
+                ["privacy", "Privacy"],
+                ["mixed", "Mixed"],
+            ),
+            sel("perf", "Performance", ["high", "High"], ["medium", "Medium"]),
+            sel(
+                "consumer",
+                "Consumer relationship",
+                ["open", "Open"],
+                ["neutral", "Neutral"],
+                ["closed", "Closed"],
+                ["community-driven", "Community-driven"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+    },
+    {
+        label: "Safety",
+        selects: [
+            sel(
+                "safe",
+                "Safety concerns",
+                ["low", "Low"],
+                ["medium", "Medium"],
+                ["high", "High"],
+            ),
+            sel(
+                "trans",
+                "Transparency",
+                ["high", "High"],
+                ["medium", "Medium"],
+            ),
+            sel(
+                "sec_hist",
+                "Security history",
+                ["good", "Good"],
+                ["mixed", "Mixed"],
+                ["poor", "Poor"],
+                ["unknown", "Unknown"],
+            ),
+            sel(
+                "ai_safety",
+                "AI Safety",
+                ["yes", "Yes"],
+                ["partial", "Partial"],
+                ["none", "None"],
+                ["unknown", "Unknown"],
+            ),
+        ],
+    },
+];
+---
+
+<aside class="s-sidebar" id="sidebar">
+    <div class="s-inner">
+        {
+            sections.map((section) => (
+                <section class="s-section">
+                    <h2 class="s-label">{section.label}</h2>
+
+                    {section.selects?.map((f) => (
+                        <div class="f-row">
+                            <label class="f-lbl" for={"f-" + f.key}>
+                                {f.label}
+                            </label>
+                            <select
+                                class="f-sel"
+                                id={"f-" + f.key}
+                                data-filter={f.key}
+                            >
+                                <option value="">Any</option>
+                                {f.options.map((o) => (
+                                    <option value={o.value}>{o.label}</option>
+                                ))}
+                            </select>
+                        </div>
+                    ))}
+
+                    {section.toggles?.length ? (
+                        <div class="t-grid">
+                            {section.toggles.map((f) => (
+                                <div class="t-row">
+                                    <span class="f-lbl">{f.label}</span>
+                                    <button
+                                        class="toggle"
+                                        id={"t-" + f.key}
+                                        data-filter={f.key}
+                                        role="switch"
+                                        aria-checked="false"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ) : null}
+                </section>
+            ))
+        }
+
+        <button class="reset-btn" id="reset-btn">
+            <i class="ti ti-refresh" aria-hidden="true"></i> Reset all
+        </button>
+    </div>
+</aside>

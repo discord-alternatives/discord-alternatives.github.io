@@ -1,233 +1,95 @@
 ---
-import raw from "../../data/platforms.json";
+import platforms from "../../data/platforms.json";
 import discord from "../../data/discord.json";
-import { safeFlatten } from "../lib/flatten";
-import { getColumns } from "../lib/schema";
+import PlatformRow from "../components/platform-row.astro";
+import Sidebar from "../components/sidebar.astro";
+import "../styles/global.css";
 
-const data = [safeFlatten(discord), ...raw.map(safeFlatten)];
-const columns = getColumns();
+const discordEntry = { ...discord, id: "discord", icon: "🎮" };
+const platformEntries = (platforms as any[]).map((p) => ({
+    ...p,
+    id: p.name.toLowerCase().replace(/[\s()]/g, "-"),
+}));
 ---
 
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Discord Alternatives</title>
+        <link rel="icon" href="/favicon.ico" />
         <link
-            rel="icon"
-            href="https://stribes.github.io/discord-alternatives/favicon.ico"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
         />
-
-        <style>
-            body {
-                font-family: system-ui, sans-serif;
-                background: #282828;
-                color: #ebdbb2;
-                margin: 0;
-            }
-
-            .topbar {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-
-                padding: 14px 16px;
-                border-bottom: 1px solid #3c3836;
-                background: #282828;
-
-                position: sticky;
-                top: 0;
-                z-index: 10;
-            }
-
-            .topbar h1 {
-                margin: 0;
-                padding: 0;
-
-                font-size: 16px;
-                font-weight: 700;
-                color: #fabd2f;
-            }
-
-            .dot {
-                color: #665c54;
-                font-weight: 700;
-            }
-
-            .subtitle {
-                margin: 0;
-                font-size: 12px;
-                color: #a89984;
-                font-weight: 500;
-            }
-
-            .table-shell {
-                padding-bottom: 14px;
-            }
-
-            .table-scroll {
-                overflow-x: auto;
-                overflow-y: visible;
-                border-top: 1px solid #3c3836;
-            }
-
-            table {
-                border-collapse: collapse;
-                width: max-content;
-                min-width: 100%;
-                font-size: 12px;
-            }
-
-            th {
-                position: sticky;
-                top: 0;
-                z-index: 2;
-                background: #3c3836;
-                color: #ebdbb2;
-                text-align: left;
-                padding: 8px 10px;
-                border: 1px solid #504945;
-                font-weight: 600;
-                white-space: nowrap;
-            }
-
-            td {
-                border: 1px solid #3c3836;
-                padding: 6px 8px;
-                white-space: nowrap;
-                color: #ebdbb2;
-            }
-
-            tr:nth-child(even) td {
-                background: #32302f;
-            }
-
-            tr:hover td {
-                background: #3c3836;
-            }
-
-            td:first-child {
-                font-weight: 600;
-                color: #fabd2f;
-                background: #282828;
-                position: sticky;
-                left: 0;
-                z-index: 1;
-            }
-
-            tr:hover td:first-child {
-                background: #3c3836;
-            }
-
-            .bool-true {
-                color: #b8bb26;
-                font-weight: 700;
-            }
-
-            .bool-false {
-                color: #fb4934;
-                font-weight: 700;
-            }
-
-            a {
-                color: #83a598;
-                text-decoration: none;
-                font-weight: 500;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .table-scroll::-webkit-scrollbar {
-                height: 10px;
-                width: 10px;
-            }
-
-            .table-scroll::-webkit-scrollbar-thumb {
-                background: #504945;
-                border-radius: 8px;
-            }
-
-            .table-scroll::-webkit-scrollbar-track {
-                background: #282828;
-            }
-        </style>
     </head>
-
     <body>
-        <header class="topbar">
-            <h1>Discord Alternatives</h1>
-            <span class="dot">•</span>
-            <p class="subtitle">Compare Discord with alternative platforms.</p>
-            <span class="dot">•</span>
-            <p class="subtitle">
+        <div class="app">
+            <header class="topbar">
+                <span class="topbar-title">Discord Alternatives</span>
+                <span class="topbar-dot">•</span>
+                <span id="top-summary"
+                    >Compare Discord with alternative platforms</span
+                >
+                <span class="topbar-dot">•</span>
                 <a
+                    class="top-summary"
                     href="https://github.com/stribes/discord-alternatives"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    View source on GitHub
+                    <i class="ti ti-brand-github top-summary" aria-hidden="true"
+                    ></i>
+                    Add Your Alternative & Source Code
                 </a>
-            </p>
-            <span class="dot">•</span>
-            <p class="subtitle">
-                <a
-                    href="https://kestrel.chat"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Check out my alternative, Kestrel!
-                </a>
-                It is currently unfinished, and thus will not be listed here.
-            </p>
-        </header>
+            </header>
 
-        <div class="wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        {columns.map((c) => <th>{c.label}</th>)}
-                    </tr>
-                </thead>
+            <div class="body">
+                <Sidebar />
 
-                <tbody>
-                    {
-                        data.map((row, index) => (
-                            <tr key={`${row.name}-${index}`}>
-                                {columns.map((c) => {
-                                    const val = row[c.key];
-
-                                    if (val === true)
-                                        return <td class="bool-true">Yes</td>;
-                                    if (val === false)
-                                        return <td class="bool-false">No</td>;
-                                    if (Array.isArray(val))
-                                        return <td>{val.join(", ")}</td>;
-
-                                    if (
-                                        typeof val === "string" &&
-                                        val.startsWith("http")
-                                    ) {
-                                        return (
-                                            <td>
-                                                <a
-                                                    href={val}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    link
-                                                </a>
-                                            </td>
-                                        );
-                                    }
-
-                                    return <td>{val ?? "-"}</td>;
-                                })}
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                <main class="main">
+                    <div class="comp-section">
+                        <div class="section-lbl">Comparison baseline</div>
+                        <PlatformRow
+                            platform={discordEntry}
+                            isComparison={true}
+                        />
+                    </div>
+                    <div class="alts-header">
+                        <div class="section-lbl" id="alts-label">
+                            Alternatives
+                        </div>
+                    </div>
+                    <div class="alts-list" id="main-list">
+                        {
+                            platformEntries.map((p) => (
+                                <PlatformRow platform={p} />
+                            ))
+                        }
+                    </div>
+                </main>
+            </div>
         </div>
+
+        <div id="notes-modal" class="notes-modal" hidden>
+            <div class="notes-modal-backdrop"></div>
+            <div class="notes-modal-content">
+                <div class="notes-modal-header">
+                    <h2 id="notes-modal-title">Notes</h2>
+                    <button
+                        id="notes-modal-close"
+                        class="notes-modal-close"
+                        aria-label="Close"
+                    >
+                        <i class="ti ti-x" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="notes-modal-body">
+                    <div id="notes-modal-text" class="notes-modal-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../scripts/app.ts"></script>
     </body>
 </html>
