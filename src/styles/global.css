@@ -88,7 +88,7 @@ body {
     flex-shrink: 0;
     border-right: 1px solid var(--border);
     background: var(--bg2);
-    overflow: auto hidden;
+    overflow: hidden auto;
 }
 .s-inner {
     padding: 8px;
